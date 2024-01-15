@@ -18,6 +18,12 @@ lvim.plugins = {
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
+  -- {
+  --   "aserowy/tmux.nvim",
+  --   config = function ()
+  --     return require("tmux").setup()
+  --   end
+  -- },
   {
     "wojciech-kulik/xcodebuild.nvim",
     dependencies = {
