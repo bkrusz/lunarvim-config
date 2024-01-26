@@ -1,6 +1,6 @@
 lvim.plugins = {
   { "mfussenegger/nvim-jdtls" },
-  { "savq/melange-nvim" },
+  { "bkrusz/melange-nvim" },
   {
     "christoomey/vim-tmux-navigator",
     cmd = {
@@ -45,7 +45,7 @@ lvim.plugins = {
       "hrsh7th/nvim-cmp",
       "plenary.nvim",
       -- "nvim-telescope/telescope.nvim"
-      "junegunn/fzf"
+      "junegunn/fzf",
     },
     config = function()
       require("obsidian").setup({
@@ -124,20 +124,24 @@ lvim.plugins = {
             ["x"] = { char = "", hl_group = "ObsidianDone" },
             [">"] = { char = "", hl_group = "ObsidianRightArrow" },
             ["~"] = { char = "󰰱", hl_group = "ObsidianTilde" },
+            ["\\"] = { char = "󰏬", hl_group = "ObsidianInProgress" },
           },
+          bullets = { char = "•", hl_group = "ObsidianBullet" },
           external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
           reference_text = { hl_group = "ObsidianRefText" },
           highlight_text = { hl_group = "ObsidianHighlightText" },
           tags = { hl_group = "ObsidianTag" },
           hl_groups = {
             ObsidianTodo = { bold = true, fg = "#f78c6c" },
-            ObsidianDone = { bold = true, fg = "#89ddff" },
+            ObsidianDone = { bold = true, fg = "#03fc0b" },
             ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
             ObsidianTilde = { bold = true, fg = "#ff5370" },
+            ObsidianInProgress = { bold = true, fg = "fce803" }
             ObsidianRefText = { underline = true, fg = "#c792ea" },
             ObsidianExtLinkIcon = { fg = "#c792ea" },
             ObsidianTag = { italic = true, fg = "#89ddff" },
             ObsidianHighlightText = { bg = "#75662e" },
+            ObsidianBullet = { bold = true, fg = "#d47766"}
           },
         },
         attachments = {
@@ -162,6 +166,53 @@ lvim.plugins = {
         yaml_parser = "native",
       })
     end
-  }
+  },
+  {
+		"simrat39/rust-tools.nvim",
+		config = function()
+			-- local lsp_installer_servers = require("nvim-lsp-installer.servers")
+			-- local _, requested_server = lsp_installer_servers.get_server("rust_analyzer")
+			require("rust-tools").setup({
+				tools = {
+					autoSetHints = true,
+					-- hover_with_actions = true,
+					-- options same as lsp hover / vim.lsp.util.open_floating_preview()
+					hover_actions = {
+
+						-- the border that is used for the hover window
+						-- see vim.api.nvim_open_win()
+						border = {
+							{ "╭", "FloatBorder" },
+							{ "─", "FloatBorder" },
+							{ "╮", "FloatBorder" },
+							{ "│", "FloatBorder" },
+							{ "╯", "FloatBorder" },
+							{ "─", "FloatBorder" },
+							{ "╰", "FloatBorder" },
+							{ "│", "FloatBorder" },
+						},
+
+						-- whether the hover action window gets automatically focused
+						-- default: false
+						auto_focus = true,
+					},
+					runnables = {
+						use_telescope = true,
+					},
+				},
+				server = {
+					on_init = require("lvim.lsp").common_on_init,
+					on_attach = function(client, bufnr)
+						require("lvim.lsp").common_on_attach(client, bufnr)
+						local rt = require("rust-tools")
+						-- Hover actions
+						vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+						-- Code action groups
+						vim.keymap.set("n", "<leader>lA", rt.code_action_group.code_action_group, { buffer = bufnr })
+					end,
+				},
+			})
+		end,
+		ft = { "rust", "rs" },
+	},
 }
-vim.wo.relativenumber = true

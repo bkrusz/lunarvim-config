@@ -6,3 +6,4 @@ vim.opt.wrap = true
 vim.opt.linebreak = true
 vim.opt.breakat = [[\ \ ;:,!?]]
 vim.opt.conceallevel = 1
+vim.wo.relativenumber = true

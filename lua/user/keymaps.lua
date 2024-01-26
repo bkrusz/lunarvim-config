@@ -14,10 +14,8 @@ lvim.builtin.which_key.mappings["o"] = {
   t = { "<cmd>ObsidianToday<cr>", "Open/create a daily note" },
   y = { "<cmd>ObsidianYesterday<cr>", "Open daily note for previous day" },
   s = { "<cmd>ObsidianSearch<cr>", "Search for a note" },
-  l = { "<cmd>ObsidianLink", "Link text to a note" },
-  L = { "<cmd>ObsidianLinkNew", "Link text to new note" },
-  i = { "<cmd>ObsidianPasteImg", "Paste image/Save to vault" },
-  r = { "<cmd>ObsidianRename", "Rename note and update backlinks" },
+  l = { "<cmd>ObsidianLink<cr>", "Link text to a note" },
+  L = { "<cmd>ObsidianLinkNew<cr>", "Link text to new note" },
 }
 
 lvim.builtin.which_key.mappings["x"] = {
