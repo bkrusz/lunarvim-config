@@ -136,7 +136,7 @@ lvim.plugins = {
             ObsidianDone = { bold = true, fg = "#03fc0b" },
             ObsidianRightArrow = { bold = true, fg = "#f78c6c" },
             ObsidianTilde = { bold = true, fg = "#ff5370" },
-            ObsidianInProgress = { bold = true, fg = "fce803" }
+            ObsidianInProgress = { bold = true, fg = "fce803" },
             ObsidianRefText = { underline = true, fg = "#c792ea" },
             ObsidianExtLinkIcon = { fg = "#c792ea" },
             ObsidianTag = { italic = true, fg = "#89ddff" },
