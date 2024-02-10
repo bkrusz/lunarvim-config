@@ -1,5 +1,6 @@
 lvim.plugins = {
   { "mfussenegger/nvim-jdtls" },
+  { "mfussenegger/nvim_dap" },
   { "bkrusz/melange-nvim" },
   {
     "christoomey/vim-tmux-navigator",

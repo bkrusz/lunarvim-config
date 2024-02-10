@@ -4,7 +4,7 @@ if not status then
 end
 
 -- Setup Workspace
-local home = os.getenv "HOME"
+local home = os.getenv("HOME")
 local workspace_path = home .. "/.local/share/lunarvim/jdtls-workspace/"
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = workspace_path .. project_name
@@ -47,11 +47,11 @@ local config = {
     "java.base/java.util=ALL-UNNAMED",
     "--add-opens",
     "java.base/java.lang=ALL-UNNAMED",
-    "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
+    "-javaagent:" .. home .. "/.local/share/lvim/mason/packages/jdtls/lombok.jar",
     "-jar",
-    vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+    vim.fn.glob(home .. "/.local/share/lvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
     "-configuration",
-    home .. "/.local/share/nvim/mason/packages/jdtls/config_" .. os_config,
+    home .. "/.local/share/lvim/mason/packages/jdtls/config_" .. os_config,
     "-data",
     workspace_dir,
   },
@@ -67,12 +67,8 @@ local config = {
         updateBuildConfiguration = "interactive",
         runtimes = {
           {
-            name = "JavaSE-11",
-            path = "~/.sdkman/candidates/java/11.0.17-tem",
-          },
-          {
-            name = "JavaSE-18",
-            path = "~/.sdkman/candidates/java/18.0.2-sem",
+            name = "JavaSE-21",
+            path = home .. "/Library/Java/JavaVirtualMachines/openjdk-21.0.1/Contents/Home/bin/java",
           },
         },
       },
@@ -115,6 +111,8 @@ config["on_attach"] = function(client, bufnr)
   end
 end
 
+require('dap.ext.vscode').load_launchjs()
+
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   pattern = { "*.java" },
   callback = function()
@@ -155,11 +153,11 @@ local vopts = {
 local mappings = {
   C = {
     name = "Java",
-    o = { "<Cmd>lua require'jdtls'.organize_imports()<CR>", "Organize Imports" },
+    o = { "<Cmd>lua require('jdtls').organize_imports()<CR>", "Organize Imports" },
     v = { "<Cmd>lua require('jdtls').extract_variable()<CR>", "Extract Variable" },
     c = { "<Cmd>lua require('jdtls').extract_constant()<CR>", "Extract Constant" },
-    t = { "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", "Test Method" },
-    T = { "<Cmd>lua require'jdtls'.test_class()<CR>", "Test Class" },
+    t = { "<Cmd>lua require('jdtls').test_nearest_method()<CR>", "Test Method" },
+    T = { "<Cmd>lua require('jdtls').test_class()<CR>", "Test Class" },
     u = { "<Cmd>JdtUpdateConfig<CR>", "Update Config" },
   },
 }
