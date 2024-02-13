@@ -1,6 +1,6 @@
 lvim.plugins = {
   { "mfussenegger/nvim-jdtls" },
-  { "mfussenegger/nvim_dap" },
+  { "mfussenegger/nvim-dap" },
   { "bkrusz/melange-nvim" },
   {
     "christoomey/vim-tmux-navigator",
@@ -88,7 +88,7 @@ lvim.plugins = {
               suffix = suffix .. string.char(math.random(65, 90))
             end
           end
-          return tostring(os.time()) .. "-" .. suffix
+          return suffix .. "-" .. string.sub(tostring(os.time()), -4, -1)
         end,
         disable_frontmatter = false,
         note_frontmatter_func = function(note)
