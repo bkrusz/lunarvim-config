@@ -19,12 +19,6 @@ lvim.plugins = {
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
-  -- {
-  --   "aserowy/tmux.nvim",
-  --   config = function ()
-  --     return require("tmux").setup()
-  --   end
-  -- },
   {
     "wojciech-kulik/xcodebuild.nvim",
     dependencies = {
@@ -65,25 +59,21 @@ lvim.plugins = {
         completion = {
           nvim_cmp = true,
           min_chars = 1,
-          new_notes_location = "current_dir",
-          -- Mutually Exclusive options
-          -- "[[Foo" completes to "[[notes/foo|Foo]]"
-          prepend_note_path = true,
-          -- "[[Foo" completes to "[[foo|Foo]]"
-          prepend_note_id = false,
-          -- "[[Foo" completes to "[[notes/foo]]"
-          use_path_only = false
         },
+        new_notes_location = "current_dir",
+        wiki_link_func = function(opts)
+          if opts.label ~= opts.path then
+            return string.format("[[%s|%s]]", opts.path, opts.label)
+          else
+            return string.format("[[%s]]", opts.path)
+          end
+        end,
         mappings = {},
         note_id_func = function(title)
-          -- Create note IDs in a Zettlekasten format with a timestamp and a suffix
-          -- In this case, a note with the title 'My new note' will be given an ID that looks like '1657296016-my-new-note'
           local suffix = ""
           if title ~= nil then
-            -- If title is given, transform it into valid file name
             suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
           else
-            -- If title is nil, just add 4 random uppercase letters to the suffix
             for _ = 1, 4 do
               suffix = suffix .. string.char(math.random(65, 90))
             end
@@ -100,10 +90,6 @@ lvim.plugins = {
           end
           return out
         end,
-        backlinks = {
-          height = 10,
-          wrap = true,
-        },
         follow_url_func = function(url)
           vim.fn.jobstart({"open", url})
         end,
@@ -125,7 +111,7 @@ lvim.plugins = {
             ["x"] = { char = "", hl_group = "ObsidianDone" },
             [">"] = { char = "", hl_group = "ObsidianRightArrow" },
             ["~"] = { char = "󰰱", hl_group = "ObsidianTilde" },
-            ["\\"] = { char = "󰏬", hl_group = "ObsidianInProgress" },
+            ["|"] = { char = "󰏬", hl_group = "ObsidianInProgress" },
           },
           bullets = { char = "•", hl_group = "ObsidianBullet" },
           external_link_icon = { char = "", hl_group = "ObsidianExtLinkIcon" },
@@ -217,3 +203,4 @@ lvim.plugins = {
 		ft = { "rust", "rs" },
 	},
 }
+lvim.builtin.nvimtree.setup.filters.custom = { }
