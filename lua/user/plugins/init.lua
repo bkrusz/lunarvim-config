@@ -1,0 +1,8 @@
+require('user.plugins.plugins')
+require('user.plugins.alpha')
+require('user.plugins.lualine')
+require('user.plugins.obsidian')
+require('user.plugins.tmux')
+require('user.plugins.go')
+require('user.plugins.rust')
+require('user.plugins.xcode')

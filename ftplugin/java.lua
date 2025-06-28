@@ -67,8 +67,8 @@ local config = {
         updateBuildConfiguration = "interactive",
         runtimes = {
           {
-            name = "JavaSE-21",
-            path = home .. "/Library/Java/JavaVirtualMachines/openjdk-21.0.1/Contents/Home/bin/java",
+            name = "JavaSE-17",
+            path = "/Library/Java/JavaVirtualMachines/jdk-17.0.3.1.jdk/Contents/Home",
           },
         },
       },
@@ -104,7 +104,7 @@ local config = {
 config["on_attach"] = function(client, bufnr)
   local _, _ = pcall(vim.lsp.codelens.refresh)
 	require("jdtls").setup_dap({ hotcodereplace = "auto" })
-	require("lvim.lsp").on_attach(client, bufnr)
+	require("lvim.lsp").common_on_attach(client, bufnr)
   local status_ok, jdtls_dap = pcall(require, "jdtls.dap")
   if status_ok then
     jdtls_dap.setup_dap_main_class_configs()

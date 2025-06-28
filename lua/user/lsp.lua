@@ -16,3 +16,12 @@ vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
 )
 lvim.builtin.treesitter.autotag.enable = true
 lvim.builtin.treesitter.ensure_installed = { "java" }
+
+-- local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+-- vim.api.nvim_create_autocmd("BufWritePre", {
+--   pattern = "*.go",
+--   callback = function ()
+--     require('go.format').goimports()
+--   end,
+--   group = format_sync_grp,
+-- })
